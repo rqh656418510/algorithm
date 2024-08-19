@@ -1,4 +1,4 @@
-package com.clay.algorithm;
+package com.clay.algorithm.part001;
 
 /**
  * 计算阶乘，支持大数字运算

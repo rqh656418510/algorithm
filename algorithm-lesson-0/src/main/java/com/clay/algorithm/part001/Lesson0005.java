@@ -1,4 +1,4 @@
-package com.clay.algorithm;
+package com.clay.algorithm.part001;
 
 /**
  * 给定一个数 m，求大于该数的最小 2 的 n 次幂，返回 n

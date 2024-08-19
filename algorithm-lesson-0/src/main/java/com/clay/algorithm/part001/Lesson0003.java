@@ -1,4 +1,4 @@
-package com.clay.algorithm;
+package com.clay.algorithm.part001;
 
 import java.util.HashMap;
 import java.util.Map;
