@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>algorithm-lesson-0</artifactId>
-    <name>algorithm-lesson-1</name>
+    <name>algorithm-lesson-0</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

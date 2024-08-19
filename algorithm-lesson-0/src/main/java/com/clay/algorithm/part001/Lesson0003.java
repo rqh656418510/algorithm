@@ -1,34 +1,68 @@
 package com.clay.algorithm.part001;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。你可以假设每种输入只会对应一个答案，但是，数组中同一个元素不能使用两遍。
- * 给定 nums = [2, 7, 11, 15], target = 9
- * 因为 nums[0] + nums[1] = 2 + 7 = 9
- * 所以返回 [0, 1]
+ * 计算大整数的阶乘
  */
 public class Lesson0003 {
 
-    public static int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> numMap = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            int diff = target - nums[i];
-            if (numMap.containsKey(diff)) {
-                return new int[] {numMap.get(diff), i};
-            }
-            // key-数组元素的值，value-数组的下标
-            numMap.put(nums[i], i);
+    /**
+     * 计算阶乘
+     */
+    public static String factorial(int n) {
+        int[] ints = new int[1024];
+
+        // 表示数值为 1
+        ints[ints.length - 1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            ints = multiply(ints, i);
         }
-        return new int[0];
+
+        return convert(ints);
+    }
+
+    /**
+     * 两数相乘，支持大整数运算
+     *
+     * @param ints 第一个数字，用数组表示每一位，如 [3, 6， 5]
+     * @param num  第二个数字
+     * @return 运算结果，使用数组表示每一位
+     */
+    private static int[] multiply(int[] ints, int num) {
+        // 计算每一位相乘的结果
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] *= num;
+        }
+
+        // 进位与留位
+        for (int i = ints.length - 1; i > 0; i--) {
+            ints[i - 1] += ints[i] / 10;
+            ints[i] = ints[i] % 10;
+        }
+        return ints;
+    }
+
+    /**
+     * 转换计算结果，忽略显示数组中最前面的零
+     */
+    private static String convert(int[] nums) {
+        boolean ignoreZero = true;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int num : nums) {
+            if (num == 0 && ignoreZero) {
+                continue;
+            } else if (num != 0 && ignoreZero) {
+                ignoreZero = false;
+            }
+            stringBuilder.append(num);
+        }
+        return stringBuilder.toString();
     }
 
     public static void main(String[] args) {
-        int target = 9;
-        int[] nums = {2, 7, 11, 15};
-        int[] result = twoSum(nums, target);
-        System.out.println("[" + result[0] + ", " + result[1] + "]");
+        int n = 50;
+        String result = factorial(n);
+        System.out.println(result);
     }
 
 }

@@ -1,20 +1,20 @@
-package com.clay.algorithm.part001;
+package com.clay.algorithm;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 手写 LRU (最近最少使用) 缓存
+ * LeetCode 第 146 道题 - LRU 缓存，https://leetcode.cn/problems/lru-cache/
  *
- * <p> 基于哈希表（HashMap） + 双向链表（DoubleLinkedList）实现 LRU 缓存
+ * <p> 基于哈希表（HashMap） + 双向链表（DoubleLinkedList）实现 LRU (最近最少使用) 缓存
  */
-public class Lesson0007 {
+public class Lesson0002 {
 
     private int cacheSize;
     private Map<Integer, Node<Integer, Integer>> map;
     private DoubleLinkedList<Integer, Integer> doubleLinkedList;
 
-    public Lesson0007(int cacheSize) {
+    public Lesson0002(int cacheSize) {
         this.cacheSize = cacheSize;
         this.map = new HashMap<>();
         this.doubleLinkedList = new DoubleLinkedList<>();
@@ -131,7 +131,7 @@ public class Lesson0007 {
     }
 
     public static void main(String[] args) {
-        Lesson0007 lruCache = new Lesson0007(3);
+        Lesson0002 lruCache = new Lesson0002(3);
 
         lruCache.put(1, 1);
         lruCache.put(2, 2);
