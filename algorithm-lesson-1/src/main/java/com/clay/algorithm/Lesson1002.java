@@ -8,13 +8,13 @@ import java.util.Map;
  *
  * <p> 基于哈希表（HashMap） + 双向链表（DoubleLinkedList）实现 LRU (最近最少使用) 缓存
  */
-public class Lesson0002 {
+public class Lesson1002 {
 
     private int cacheSize;
     private Map<Integer, Node<Integer, Integer>> map;
     private DoubleLinkedList<Integer, Integer> doubleLinkedList;
 
-    public Lesson0002(int cacheSize) {
+    public Lesson1002(int cacheSize) {
         this.cacheSize = cacheSize;
         this.map = new HashMap<>();
         this.doubleLinkedList = new DoubleLinkedList<>();
@@ -131,7 +131,7 @@ public class Lesson0002 {
     }
 
     public static void main(String[] args) {
-        Lesson0002 lruCache = new Lesson0002(3);
+        Lesson1002 lruCache = new Lesson1002(3);
 
         lruCache.put(1, 1);
         lruCache.put(2, 2);
