@@ -1,5 +1,7 @@
 package com.clay.algorithm;
 
+import java.util.Arrays;
+
 /**
  * LeetCode 第 167 道题 - 两数之和 II - 输入有序数组，https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/
  *
@@ -11,11 +13,32 @@ package com.clay.algorithm;
 public class Lesson1004 {
 
     public static int[] twoSum(int[] numbers, int target) {
-        return null;
+        // 左指针
+        int left = 0;
+        // 右指针
+        int right = numbers.length - 1;
+
+        while (left < right) {
+            int sum = numbers[left] + numbers[right];
+            if (sum == target) {
+                return new int[] {left + 1, right + 1};
+            } else if (sum < target) {
+                // 让 sum 大一点，左指针右移
+                left++;
+            } else {
+                // 让 sum 小一点，右指针左移
+                right--;
+            }
+        }
+        return new int[] {-1, -1};
     }
 
     public static void main(String[] args) {
-
+        int[] numbers = new int[] {2, 7, 11, 15};
+        int[] result = twoSum(numbers, 9);
+        Arrays.stream(result).forEach(item -> {
+            System.out.print(item + " ");
+        });
     }
 
 }
