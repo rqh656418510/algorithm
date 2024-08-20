@@ -14,9 +14,9 @@ public class Lesson1003 {
         for (int left = 0; left < s.length; left++) {
             int right = s.length - left - 1;
             if (left < right) {
-                char tmp = s[right];
-                s[right] = s[left];
-                s[left] = tmp;
+                char tmp = s[left];
+                s[left] = s[right];
+                s[right] = tmp;
             }
         }
     }
@@ -28,3 +28,5 @@ public class Lesson1003 {
     }
 
 }
+
+
