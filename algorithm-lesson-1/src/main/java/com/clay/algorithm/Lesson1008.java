@@ -31,7 +31,7 @@ public class Lesson1008 {
         int[] array = new int[] {0, 1, 2, 2, 3, 0, 4, 2};
         int length = removeElement(array, 2);
         System.out.println(length);
-        Arrays.stream(array).forEach(System.out::println);
+        Arrays.stream(array).forEach(System.out::print);
     }
 
 }
