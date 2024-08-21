@@ -13,14 +13,25 @@ import java.util.Arrays;
 public class Lesson1008 {
 
     public static int removeElement(int[] nums, int val) {
-        return 0;
+        int slow = 0;
+        int fast = 0;
+        while (fast < nums.length) {
+            if (nums[fast] != val) {
+                int tmp = nums[slow];
+                nums[slow] = nums[fast];
+                nums[fast] = tmp;
+                slow++;
+            }
+            fast++;
+        }
+        return slow;
     }
 
     public static void main(String[] args) {
         int[] array = new int[] {0, 1, 2, 2, 3, 0, 4, 2};
         int length = removeElement(array, 2);
         System.out.println(length);
-        Arrays.stream(array).forEach(item -> System.out.print(item + " "));
+        Arrays.stream(array).forEach(System.out::println);
     }
 
 }
