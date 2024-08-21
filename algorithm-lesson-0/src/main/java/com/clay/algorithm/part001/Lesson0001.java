@@ -1,54 +1,51 @@
 package com.clay.algorithm.part001;
 
 /**
- * 二分查找
+ * 青蛙跳台阶
+ *
+ * <p> 一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法
  */
 public class Lesson0001 {
 
-    /**
-     * 二分查找
-     *
-     * @param array  有序数组
-     * @param target 目标值
-     * @return 目标值的下标，查找不到则返回 -1
-     */
-    public static int binarySearch(int[] array, int target) {
-        int left = 0;  // 左边位置
-        int middle = 0;  // 中间位置
-        int right = array.length - 1;  // 右边位置
-
-        while (left <= right) {
-            middle = (left + right) / 2;
-            if (array[middle] == target) {
-                // 找到目标值
-                return middle;
-            } else if (array[middle] < target) {
-                // 目标值在数组的右侧
-                left = middle + 1;
-            } else {
-                // 目标值在数组的左侧
-                right = middle - 1;
-            }
-        }
-
-        return -1;
+    public static void main(String[] args) {
+        System.out.println(fn(3));
+        System.out.println(loop(3));
     }
 
-    public static void main(String[] args) {
-        // 数据集合必须是有序的
-        int[] array = {2, 4, 7, 8, 10, 12, 16, 19, 20};
-
-        // 目标值
-        int target = 12;
-        // 目标值的位置
-        int index = binarySearch(array, target);
-
-        // 打印结果
-        if (index == -1) {
-            System.out.println("Not found number " + target);
-        } else {
-            System.out.println("Found number " + target + ", Position is " + index);
+    /**
+     * 递归的写法
+     */
+    public static int fn(int n) {
+        if (n < 1) {
+            throw new IllegalArgumentException(n + " is less than one");
         }
+        if (n == 1 || n == 2) {
+            return n;
+        }
+        return fn(n - 1) + fn(n - 2);
+    }
+
+    /**
+     * 迭代（循环）的写法
+     */
+    public static int loop(int n) {
+        if (n < 1) {
+            throw new IllegalArgumentException(n + " is less than one");
+        }
+        if (n == 1 || n == 2) {
+            return n;
+        }
+
+        int one = 2;    // 初始化为走到第二级台阶的走法
+        int two = 1;    // 初始化为走到第一级台阶的走法
+        int sum = 0;
+
+        for (int i = 3; i <= n; i++) {
+            sum = two + one;
+            two = one;
+            one = sum;
+        }
+        return sum;
     }
 
 }

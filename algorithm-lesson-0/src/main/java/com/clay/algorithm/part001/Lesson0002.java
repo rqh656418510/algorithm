@@ -1,51 +1,68 @@
 package com.clay.algorithm.part001;
 
 /**
- * 青蛙跳台阶
- *
- * <p> 一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法
+ * 计算大整数的阶乘
  */
 public class Lesson0002 {
 
+    /**
+     * 计算阶乘
+     */
+    public static String factorial(int n) {
+        int[] ints = new int[1024];
+
+        // 表示数值为 1
+        ints[ints.length - 1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            ints = multiply(ints, i);
+        }
+
+        return convert(ints);
+    }
+
+    /**
+     * 两数相乘，支持大整数运算
+     *
+     * @param ints 第一个数字，用数组表示每一位，如 [3, 6， 5]
+     * @param num  第二个数字
+     * @return 运算结果，使用数组表示每一位
+     */
+    private static int[] multiply(int[] ints, int num) {
+        // 计算每一位相乘的结果
+        for (int i = 0; i < ints.length; i++) {
+            ints[i] *= num;
+        }
+
+        // 进位与留位
+        for (int i = ints.length - 1; i > 0; i--) {
+            ints[i - 1] += ints[i] / 10;
+            ints[i] = ints[i] % 10;
+        }
+        return ints;
+    }
+
+    /**
+     * 转换计算结果，忽略显示数组中最前面的零
+     */
+    private static String convert(int[] nums) {
+        boolean ignoreZero = true;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int num : nums) {
+            if (num == 0 && ignoreZero) {
+                continue;
+            } else if (num != 0 && ignoreZero) {
+                ignoreZero = false;
+            }
+            stringBuilder.append(num);
+        }
+        return stringBuilder.toString();
+    }
+
     public static void main(String[] args) {
-        System.out.println(fn(3));
-        System.out.println(loop(3));
-    }
-
-    /**
-     * 递归的写法
-     */
-    public static int fn(int n) {
-        if (n < 1) {
-            throw new IllegalArgumentException(n + " is less than one");
-        }
-        if (n == 1 || n == 2) {
-            return n;
-        }
-        return fn(n - 1) + fn(n - 2);
-    }
-
-    /**
-     * 迭代（循环）的写法
-     */
-    public static int loop(int n) {
-        if (n < 1) {
-            throw new IllegalArgumentException(n + " is less than one");
-        }
-        if (n == 1 || n == 2) {
-            return n;
-        }
-
-        int one = 2;    // 初始化为走到第二级台阶的走法
-        int two = 1;    // 初始化为走到第一级台阶的走法
-        int sum = 0;
-
-        for (int i = 3; i <= n; i++) {
-            sum = two + one;
-            two = one;
-            one = sum;
-        }
-        return sum;
+        int n = 50;
+        String result = factorial(n);
+        System.out.println(result);
     }
 
 }

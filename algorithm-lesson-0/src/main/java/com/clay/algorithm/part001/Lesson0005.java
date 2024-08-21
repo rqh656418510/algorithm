@@ -1,65 +1,84 @@
 package com.clay.algorithm.part001;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * 插入排序
+ * 去除 List 中的重复元素
+ *
+ * <p> 将 List 集合中的重复元素去除掉，要求至少给出三种实现方案
  */
 public class Lesson0005 {
 
-    public static void main(String[] args) {
-        sort1();
-        sort2();
+    /**
+     * 第一种方案：遍历 List，判断 newList 是否存在某个元素，如果不存在，则添加到 newList 里面
+     */
+    public static void test01() {
+        List<Integer> initList = new ArrayList<>(Arrays.asList(60, 30, 30, 55, 12, 23, 23, 75, 42, 42, 42, 88));
+        List<Integer> newList = new ArrayList<>();
+        initList.forEach(item -> {
+            if (!newList.contains(item)) {
+                newList.add(item);
+            }
+        });
+        newList.forEach(item -> System.out.print(item + " "));
     }
 
     /**
-     * 效率低的写法（三次循环），但代码容易理解
+     * 第二种方案：使用 LinkedHashSet 去重
      */
-    public static void sort1() {
-        int[] array = new int[] {7, 3, 8, 2, 1, 9, 4, 5};
+    public static void test02() {
+        List<Integer> initList = new ArrayList<>(Arrays.asList(60, 30, 30, 55, 12, 23, 23, 75, 42, 42, 42, 88));
+        Set<Integer> newSet = new LinkedHashSet<>(initList);
+        newSet.forEach(item -> System.out.print(item + " "));
+    }
 
-        for (int i = 1; i < array.length; i++) {
-            // 找到要重新排序的元素
-            if (array[i] < array[i - 1]) {
-                for (int j = 0; j < i; j++) {
-                    // 找到元素要插入的位置
-                    if (array[i] < array[j]) {
-                        int tmp = array[i];
-                        // 向后移动数组的元素
-                        for (int k = i; k > j; k--) {
-                            array[k] = array[k - 1];
-                        }
-                        array[j] = tmp;
-                    }
+    /**
+     * 第三种方案：使用 Stream 流式计算去重
+     */
+    public static void test03() {
+        List<Integer> initList = new ArrayList<>(Arrays.asList(60, 30, 30, 55, 12, 23, 23, 75, 42, 42, 42, 88));
+        List<Integer> newList = initList.stream().distinct().collect(Collectors.toList());
+        newList.forEach(item -> System.out.print(item + " "));
+    }
+
+    /**
+     * 第四种方案：使用循环坐标去重，类似双指针，按照值找到下标，如果两次找到的下标不同，则表示元素有重复，需要删除元素
+     */
+    public static void test04() {
+        List<Integer> list = new ArrayList<>(Arrays.asList(60, 30, 30, 55, 12, 23, 23, 75, 42, 42, 42, 88));
+        List<Integer> srcList = new ArrayList<>(list);
+        List<Integer> newList = new ArrayList<>(list);
+
+        for (Integer item : srcList) {
+            if (newList.indexOf(item) != newList.lastIndexOf(item)) {
+                newList.remove(newList.lastIndexOf(item));
+            }
+        }
+
+        newList.forEach(item -> System.out.print(item + " "));
+    }
+
+    /**
+     * 第五种方案：双 For 循环对比，通过下标获得值，外层循环和内层循环对比，值相同则删除元素
+     */
+    public static void test05() {
+        List<Integer> list = new ArrayList<>(Arrays.asList(60, 30, 30, 55, 12, 23, 23, 75, 42, 42, 42, 88));
+        List<Integer> newList = new ArrayList<>(list);
+
+        for (int i = 0; i < newList.size(); i++) {
+            for (int j = newList.size() - 1; j > i; j--) {
+                if (newList.get(j).equals(newList.get(i))) {
+                    newList.remove(j);
                 }
             }
         }
 
-        System.out.println(Arrays.toString(array));
-    }
-
-    /**
-     * 效率高的写法（两次循环）
-     */
-    public static void sort2() {
-        int[] array = new int[] {7, 3, 8, 2, 1, 9, 4, 5};
-
-        for (int i = 1; i < array.length; i++) {
-            // 当前要插入的元素
-            int key = array[i];
-            // 已排序的子数组的最后一个元素的索引
-            int j = i - 1;
-
-            // 将所有比当前元素大的元素向右移动一个位置，直到找到比当前元素小的元素或者已经到达子数组的开头
-            while (j >= 0 && array[j] > key) {
-                array[j + 1] = array[j];
-                j--;
-            }
-            // 将当前元素插入到合适的位置
-            array[j + 1] = key;
-        }
-
-        System.out.println(Arrays.toString(array));
+        newList.forEach(item -> System.out.print(item + " "));
     }
 
 }
